@@ -102,10 +102,11 @@ public class WeixinUtil {
         if(msgType.equals(Message.TEXT)){
             message.setContent(map.get("Content"));
         }
-        if(msgType.equals(Message.EVENT)){
-            message.setEvent(map.get("Event"));
-            message.setLatitude( Double.parseDouble(map.get("Latitude")));
-            message.setLongitude(Double.parseDouble(map.get("Longitude")));
+        if(msgType.equals(Message.LOCATION)){
+            message.setLocationX(Double.parseDouble(map.get("Location_X")));
+            message.setLocationY(Double.parseDouble(map.get("Location_Y")));
+            message.setScale(map.get("Scale"));
+            message.setLabel(map.get("Label"));
         }
         return message;
     }

@@ -1,7 +1,6 @@
 package com.wx.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 微信消息（服务端接收到的）
@@ -10,8 +9,6 @@ import java.util.Date;
 public  class Message implements Serializable {
 
     public static final String TEXT = "text";
-
-    public static final String EVENT = "event";
 
     public static final String LOCATION = "location";
 
@@ -28,14 +25,14 @@ public  class Message implements Serializable {
     // 消息内容 (文本消息专有)
     private String content;
 
-    //事件类型，subscribe(订阅)、unsubscribe(取消订阅)、CLICK(自定义菜单点击事件) （事件推送专有）
-    private String event;
-    //地理位置纬度
-    private Double latitude;
-    //地理位置经度
-    private Double longitude;
-    //地理位置精度
-    private Double precision;
+    //地理位置纬度 Location_X(地理位置专有)
+    private Double locationX;
+    //地理位置经度 Location_Y(地理位置专有)
+    private Double locationY;
+    // 地图缩放大小  (地理位置专有)
+    private String scale;
+    // 地理位置信息  (地理位置专有)
+    private String label;
 
 
 
@@ -79,35 +76,35 @@ public  class Message implements Serializable {
         this.content = content;
     }
 
-    public String getEvent() {
-        return event;
+    public String getScale() {
+        return scale;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public void setScale(String scale) {
+        this.scale = scale;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public String getLabel() {
+        return label;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Double getLocationX() {
+        return locationX;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLocationX(Double locationX) {
+        this.locationX = locationX;
     }
 
-    public Double getPrecision() {
-        return precision;
+    public Double getLocationY() {
+        return locationY;
     }
 
-    public void setPrecision(Double precision) {
-        this.precision = precision;
+    public void setLocationY(Double locationY) {
+        this.locationY = locationY;
     }
 }
