@@ -79,7 +79,6 @@ public class WeixinUtil {
                 //遍历xml将数据写入map
                 map.put(e.getName(), e.getText());
             inputStream.close();
-            inputStream = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,7 +99,14 @@ public class WeixinUtil {
         message.setCreateTime(Integer.parseInt(map.get("CreateTime")));
         message.setMsgType(msgType);
         message.setMsgId(map.get("MsgId"));
-        message.setContent(map.get("Content"));
+        if(msgType.equals(Message.TEXT)){
+            message.setContent(map.get("Content"));
+        }
+        if(msgType.equals(Message.EVENT)){
+            message.setEvent(map.get("Event"));
+            message.setLatitude( Double.parseDouble(map.get("Latitude")));
+            message.setLongitude(Double.parseDouble(map.get("Longitude")));
+        }
         return message;
     }
 

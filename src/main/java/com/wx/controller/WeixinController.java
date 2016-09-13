@@ -57,9 +57,15 @@ public class WeixinController {
         String result="error";
         Map<String, String> requestMap = WeixinUtil.parseXml(request);
         Message message = WeixinUtil.mapToMessage(requestMap);
-        if (message.getContent()!=null){
+        if (message!=null){
             Reply reply=new Reply();
-            reply.setContent(message.getContent());
+            if (message.getMsgType().equals(message.TEXT)){
+                reply.setContent(message.getContent());
+            }
+            if (message.getMsgType().equals(message.EVENT)){
+                String l=message.getLatitude()+""+message.getLongitude();
+                reply.setContent(l);
+            }
             reply.setToUserName(message.getFromUserName());
             reply.setFromUserName(message.getToUserName());
             reply.setCreateTime(new Date());
