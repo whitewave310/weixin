@@ -2,6 +2,7 @@ package com.wx.controller;
 
 import com.wx.entity.Message;
 import com.wx.entity.Reply;
+import com.wx.model.Weixin;
 import com.wx.service.WeixinService;
 import com.wx.util.WeixinUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,8 +62,24 @@ public class WeixinController {
         if (message!=null){
             Reply reply=new Reply();
             if (message.getMsgType().equals(message.TEXT)){
-                reply.setContent(message.getContent());
-                weixinService.saveContent(message.getFromUserName(),message.getContent());
+                if (message.getContent().equals("数据库")){
+                    List<Weixin> weixinList=weixinService.showWeixin();
+                    String replyContent=" ";
+                    for (Weixin weixin:weixinList){
+                        replyContent=replyContent+weixin.getContent()+" ";
+                    }
+                    reply.setContent(replyContent);
+                }else if(message.getContent().equals("我的数据库")){
+                    List<Weixin> weixinList=weixinService.showWeixinByName(message.getFromUserName());
+                    String replyContent=" ";
+                    for (Weixin weixin:weixinList){
+                        replyContent=replyContent+weixin.getContent()+" ";
+                    }
+                    reply.setContent(replyContent);
+                } else {
+                    reply.setContent(message.getContent());
+                    weixinService.saveContent(message.getFromUserName(),message.getContent());
+                }
             }
             if (message.getMsgType().equals(message.LOCATION)){
                 String l="你离我有"+WeixinUtil.wgs84PointsDistance(message.getLocationX(),message.getLocationY())+"米";

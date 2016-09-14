@@ -2,6 +2,8 @@ package com.wx.dao;
 
 import com.wx.model.Weixin;
 
+import java.util.List;
+
 public interface WeixinMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,7 @@ public interface WeixinMapper {
     int updateByPrimaryKeySelective(Weixin record);
 
     int updateByPrimaryKey(Weixin record);
+
+    List<Weixin> getAll();
+    List<Weixin> getWeixinByName(String fromUserName);
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by lijing on 2016/9/8.
  */
@@ -31,5 +33,15 @@ public class WeixinServiceImpl implements WeixinService{
             result=true;
         }
         return result;
+    }
+
+    public List<Weixin> showWeixin() {
+        List<Weixin> weixinList=getMapper(WeixinMapper.class).getAll();
+        return weixinList;
+    }
+
+    public List<Weixin> showWeixinByName(String fromUserName) {
+        List<Weixin> weixinList=getMapper(WeixinMapper.class).getWeixinByName(fromUserName);
+        return weixinList;
     }
 }
