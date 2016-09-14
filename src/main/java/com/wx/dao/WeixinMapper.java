@@ -18,5 +18,8 @@ public interface WeixinMapper {
     int updateByPrimaryKey(Weixin record);
 
     List<Weixin> getAll();
+
     List<Weixin> getWeixinByName(String fromUserName);
+
+    int deleteByName(String fromUserName);
 }

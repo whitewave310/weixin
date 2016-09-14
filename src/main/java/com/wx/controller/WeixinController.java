@@ -76,7 +76,10 @@ public class WeixinController {
                         replyContent=replyContent+weixin.getContent()+" ";
                     }
                     reply.setContent(replyContent);
-                } else {
+                } else if (message.getContent().equals("删除")){
+                    weixinService.deleteWeixinByName(message.getFromUserName());
+                    reply.setContent("删除成功");
+                }else {
                     reply.setContent(message.getContent());
                     weixinService.saveContent(message.getFromUserName(),message.getContent());
                 }

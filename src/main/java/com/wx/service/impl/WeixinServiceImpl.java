@@ -44,4 +44,12 @@ public class WeixinServiceImpl implements WeixinService{
         List<Weixin> weixinList=getMapper(WeixinMapper.class).getWeixinByName(fromUserName);
         return weixinList;
     }
+
+    public boolean deleteWeixinByName(String fromUserName) {
+        boolean result=false;
+        if(getMapper(WeixinMapper.class).deleteByName(fromUserName)>0){
+            result=true;
+        }
+        return result;
+    }
 }

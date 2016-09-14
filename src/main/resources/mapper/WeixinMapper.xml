@@ -74,4 +74,8 @@
     <select id="getWeixinByName" resultType="com.wx.model.Weixin">
         SELECT * FROM weixin where fromUserName = #{fromusername,jdbcType=VARCHAR}
     </select>
+    <delete id="deleteByName" parameterType="java.lang.String" >
+        delete from weixin
+        where fromUserName = #{fromusername,jdbcType=VARCHAR}
+    </delete>
 </mapper>

@@ -11,4 +11,5 @@ public interface WeixinService {
     boolean saveContent(String fromUserName,String content);
     List<Weixin> showWeixin();
     List<Weixin> showWeixinByName(String fromUserName);
+    boolean deleteWeixinByName(String fromUserName);
 }
