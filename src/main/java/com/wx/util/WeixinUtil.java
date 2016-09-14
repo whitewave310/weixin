@@ -122,4 +122,19 @@ public class WeixinUtil {
         return xstream.toXML(reply);
     }
 
+//    根据经度纬度算两点距离
+    public static int wgs84PointsDistance(Double y,Double x){
+        Integer r = 6378137;
+        double x1 = 112.556602 * Math.PI / 180;
+        double x2 = x * Math.PI / 180;
+        double y1 = 37.864891 * Math.PI / 180;
+        double y2 = y * Math.PI / 180;
+        double dx = Math.abs(x1 - x2);
+        double dy = Math.abs(y1 - y2);
+        double p = Math.pow(Math.sin(dx / 2), 2) + Math.cos(x1) * Math.cos(x2) * Math.pow(Math.sin(dy / 2), 2);
+        double d= r * 2 * Math.asin(Math.sqrt(p));
+        Integer i=(int)d;
+        return i;
+
+    }
 }

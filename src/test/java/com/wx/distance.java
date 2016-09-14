@@ -3,7 +3,7 @@ package com.wx;
 /**
  * Created by lijing on 2016/9/13.
  */
-public class weixin {
+public class distance {
     public static void main(String[] args){
         Double l=wgs84PointsDistance(113.352425,23.137466);
         System.out.println(l);

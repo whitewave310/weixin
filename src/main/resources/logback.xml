@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" debug="false">
+    <!-- See http://logback.qos.ch/manual/layouts.html -->
+    <property name="log.base" value="./log" />
+    <!--<property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %cyan(%logger{15}): %red(%msg) %n" />-->
+    <property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger: %msg %n" />
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <outputPatternAsHeader>false</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="log"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/log.%d{yyyyMMdd}</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <outputPatternAsHeader>false</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="error"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/error</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/error.%d{yyyyMMdd}</fileNamePattern>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <outputPatternAsHeader>false</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+
+
+
+    <logger name="com.mchange.v2" level="info" />
+
+    <!--<logger name="org.apache.ibatis.logging.jdbc" level="debug"><appender-ref ref="c3p0" /></logger>-->
+
+    <!--&lt;!&ndash;log4jdbc &ndash;&gt;-->
+    <!--<logger name="com.ejt.bsp.dao" level="debug"><appender-ref ref="c3p0"/></logger>-->
+
+    <!--<logger name="com.ejt.bsp" level="debug" />-->
+
+
+    <root level="debug">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="log" />
+        <appender-ref ref="error" />
+    </root>
+
+</configuration>

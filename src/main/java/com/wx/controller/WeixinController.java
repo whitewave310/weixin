@@ -28,7 +28,7 @@ public class WeixinController {
 
 
     /**
-     * ����token����signature��֤�Ƿ�Ϊ΢�ŷ���˷��͵���Ϣ
+     * TOKEN验证
      */
     @RequestMapping(value = "wx", method = RequestMethod.GET)
     public String checkSignature(HttpServletRequest request){
@@ -61,9 +61,10 @@ public class WeixinController {
             Reply reply=new Reply();
             if (message.getMsgType().equals(message.TEXT)){
                 reply.setContent(message.getContent());
+                weixinService.saveContent(message.getFromUserName(),message.getContent());
             }
             if (message.getMsgType().equals(message.LOCATION)){
-                String l="你离我有"+wgs84PointsDistance(message.getLocationX(),message.getLocationY())+"米";
+                String l="你离我有"+WeixinUtil.wgs84PointsDistance(message.getLocationX(),message.getLocationY())+"米";
                 reply.setContent(l);
             }
             reply.setToUserName(message.getFromUserName());
@@ -74,20 +75,5 @@ public class WeixinController {
             result=back;
         }
         return result;
-    }
-
-    public static int wgs84PointsDistance(Double y,Double x){
-        Integer r = 6378137;
-        double x1 = 112.556602 * Math.PI / 180;
-        double x2 = x * Math.PI / 180;
-        double y1 = 37.864891 * Math.PI / 180;
-        double y2 = y * Math.PI / 180;
-        double dx = Math.abs(x1 - x2);
-        double dy = Math.abs(y1 - y2);
-        double p = Math.pow(Math.sin(dx / 2), 2) + Math.cos(x1) * Math.cos(x2) * Math.pow(Math.sin(dy / 2), 2);
-        double d= r * 2 * Math.asin(Math.sqrt(p));
-        Integer i=(int)d;
-        return i;
-
     }
 }
