@@ -2,7 +2,9 @@ package com.wx.controller;
 
 import com.wx.entity.Message;
 import com.wx.entity.Reply;
+import com.wx.model.Location;
 import com.wx.model.Weixin;
+import com.wx.service.LocationService;
 import com.wx.service.WeixinService;
 import com.wx.util.WeixinUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class WeixinController {
 
     @Autowired
     private WeixinService weixinService;
+
+    @Autowired
+    private LocationService locationService;
 
 
     /**
@@ -85,8 +90,18 @@ public class WeixinController {
                 }
             }
             if (message.getMsgType().equals(message.LOCATION)){
-                String l="你离我有"+WeixinUtil.wgs84PointsDistance(message.getLocationX(),message.getLocationY())+"米";
-                reply.setContent(l);
+                if(message.getFromUserName().equals("osCd_wGpK3zwitAsclc2LgGDjHq8")){
+                    locationService.updateLocation(message.getLocationX(), message.getLocationY());
+                    String l="经度:"+message.getLocationY() + "纬度:"+message.getLocationX();
+                    reply.setContent(l);
+                }else {
+                    Location myLocation = locationService.getLocation();
+                    Location userLocation = new Location();
+                    userLocation.setLon(message.getLocationX());
+                    userLocation.setLat(message.getLocationY());
+                    String l = "你离我有" + WeixinUtil.wgs84PointsDistance(myLocation, userLocation) + "公里";
+                    reply.setContent(l);
+                }
             }
             reply.setToUserName(message.getFromUserName());
             reply.setFromUserName(message.getToUserName());

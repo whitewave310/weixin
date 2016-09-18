@@ -40,7 +40,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="weixin" domainObjectName="Weixin"
+        <table tableName="location" domainObjectName="Location"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" enableCountByExample="false" selectByExampleQueryId="false">
             <property name="modelOnly" value="true"></property>
