@@ -2,9 +2,8 @@ package com.wx;
 
 import com.wx.model.Location;
 
-/**
- * Created by lijing on 2016/9/13.
- */
+import java.text.DecimalFormat;
+
 public class distance {
     public static void main(String[] args){
         //¹«Ë¾
@@ -20,12 +19,12 @@ public class distance {
         Location userLocation1=new Location();
         userLocation1.setLon(112.32869);
         userLocation1.setLat(37.361698);
-        int l=wgs84PointsDistance(myLocation,userLocation);
-        int ll=wgs84Distance(myLocation,userLocation);
+        String l=wgs84PointsDistance(myLocation,userLocation);
+        String ll=wgs84Distance(myLocation,userLocation);
         System.out.println(l);
         System.out.println(ll);
     }
-    public static int wgs84PointsDistance(Location myLocation,Location userLocation){
+    public static String wgs84PointsDistance(Location myLocation,Location userLocation){
         Integer r = 6378137;
         double x1 = myLocation.getLon() * Math.PI / 180;
         double x2 = userLocation.getLon() * Math.PI / 180;
@@ -35,12 +34,13 @@ public class distance {
         double dy = Math.abs(y1 - y2);
         double p = Math.pow(Math.sin(dx / 2), 2) + Math.cos(x1) * Math.cos(x2) * Math.pow(Math.sin(dy / 2), 2);
         double d= r * 2 * Math.asin(Math.sqrt(p));
-        Integer i=(int)d;
-        return i;
+        DecimalFormat df=new DecimalFormat("0.00");
+        String s=df.format(d/1000);
+        return s;
 
     }
 
-    public static int wgs84Distance(Location myLocation,Location userLocation){
+    public static String wgs84Distance(Location myLocation,Location userLocation){
         double lon1 = myLocation.getLon();
         double lat1 = myLocation.getLat();
         double lon2 = userLocation.getLon();
@@ -68,7 +68,7 @@ public class distance {
             double cosLambda = Math.cos(lambda);
             sinSigma = Math.sqrt((cosU2 * sinLambda) * (cosU2 * sinLambda) + (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) * (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
             if(sinSigma == 0)
-                return 0;
+                return "";
             cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda;
             sigma = Math.atan2(sinSigma, cosSigma);
             double sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
@@ -86,6 +86,8 @@ public class distance {
         double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
         double deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
         int s = (int) (b * A * (sigma - deltaSigma));
-        return s;
+        DecimalFormat df=new DecimalFormat("#.00");
+        String l=df.format(s/1000);
+        return l;
     }
 }

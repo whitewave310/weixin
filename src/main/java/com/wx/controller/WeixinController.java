@@ -103,6 +103,13 @@ public class WeixinController {
                     reply.setContent(l);
                 }
             }
+            if (message.getMsgType().equals(message.EVENT)){
+                if (message.getEvent().equals("subscribe")){
+                    reply.setContent("欢迎关注我的公众号，现在有学你说话功能、你离我有多远功能。给我发信息，发位置试试吧。而且你还可以管理自己发现的信息哦，发送“数据库”，你将看到公众号收到的所有信息，发送“我的数据库”，你将看到自己发的所有信息。回复“删除”，你还可以删掉自己的所有信息哦");
+                }else if(message.getEvent().equals("unsubscribe")){
+                    reply.setContent("拜，欢迎下次再来。");
+                }
+            }
             reply.setToUserName(message.getFromUserName());
             reply.setFromUserName(message.getToUserName());
             reply.setCreateTime(new Date());

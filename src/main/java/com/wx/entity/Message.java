@@ -12,6 +12,8 @@ public  class Message implements Serializable {
 
     public static final String LOCATION = "location";
 
+    public static final String EVENT = "event";
+
     // 开发者微信号
     private String toUserName;
     // 发送方帐号（一个OpenID）  
@@ -34,7 +36,15 @@ public  class Message implements Serializable {
     // 地理位置信息  (地理位置专有)
     private String label;
 
+    private String event;
 
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
 
     public String getToUserName() {
         return toUserName;

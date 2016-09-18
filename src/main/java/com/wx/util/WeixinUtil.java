@@ -110,6 +110,9 @@ public class WeixinUtil {
             message.setScale(map.get("Scale"));
             message.setLabel(map.get("Label"));
         }
+        if (msgType.equals(Message.EVENT)){
+            message.setEvent(map.get("Event"));
+        }
         return message;
     }
 
@@ -135,7 +138,7 @@ public class WeixinUtil {
         double dy = Math.abs(y1 - y2);
         double p = Math.pow(Math.sin(dx / 2), 2) + Math.cos(x1) * Math.cos(x2) * Math.pow(Math.sin(dy / 2), 2);
         double d= r * 2 * Math.asin(Math.sqrt(p));
-        DecimalFormat df=new DecimalFormat("#.00");
+        DecimalFormat df=new DecimalFormat("0.00");
         String s=df.format(d/1000);
         return s;
 
@@ -187,7 +190,7 @@ public class WeixinUtil {
         double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
         double deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
         double d= b * A * (sigma - deltaSigma);
-        DecimalFormat df=new DecimalFormat("#.00");
+        DecimalFormat df=new DecimalFormat("0.00");
         String s=df.format(d/1000);
         return s;
     }
