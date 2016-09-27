@@ -8,14 +8,10 @@ import com.wx.service.LocationService;
 import com.wx.service.WeixinService;
 import com.wx.util.WeixinUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +77,11 @@ public class WeixinController {
                         replyContent=replyContent+weixin.getContent()+" ";
                     }
                     reply.setContent(replyContent);
-                } else if (message.getContent().equals("删除")){
+                }else if (message.getContent().equals("删除")){
                     weixinService.deleteWeixinByName(message.getFromUserName());
                     reply.setContent("删除成功");
+                }else if(message.getContent().equals("github")){
+                    reply.setContent("https://github.com/whitewave310");
                 }else {
                     reply.setContent(message.getContent());
                     weixinService.saveContent(message.getFromUserName(),message.getContent());
@@ -105,10 +103,13 @@ public class WeixinController {
             }
             if (message.getMsgType().equals(message.EVENT)){
                 if (message.getEvent().equals("subscribe")){
-                    reply.setContent("欢迎关注我的公众号，现在有学你说话功能、你离我有多远功能。给我发信息，发位置试试吧。而且你还可以管理自己发现的信息哦，发送“数据库”，你将看到公众号收到的所有信息，发送“我的数据库”，你将看到自己发的所有信息。回复“删除”，你还可以删掉自己的所有信息哦");
+                    reply.setContent("欢迎关注我的公众号，现在有学你说话功能、你离我有多远功能和管理用户功能。\n发送“数据库”，你将看到公众号收到的所有信息\n发送“我的数据库”，你将看到自己发的所有信息\n发送“删除”，你还可以删掉自己的所有信息\n发送“github”,你将收到李静的github地址。");
                 }else if(message.getEvent().equals("unsubscribe")){
                     reply.setContent("拜，欢迎下次再来。");
                 }
+            }
+            if (message.getMsgType().equals(message.IMAGE)){
+                reply.setContent("我不是认识这个图片耶，给我主人发吧。");
             }
             reply.setToUserName(message.getFromUserName());
             reply.setFromUserName(message.getToUserName());

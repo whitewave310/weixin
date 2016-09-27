@@ -14,6 +14,8 @@ public  class Message implements Serializable {
 
     public static final String EVENT = "event";
 
+    public  static final String IMAGE= "image";
+
     // 开发者微信号
     private String toUserName;
     // 发送方帐号（一个OpenID）  
@@ -37,6 +39,26 @@ public  class Message implements Serializable {
     private String label;
 
     private String event;
+
+    private String picUrl;
+
+    private String mediaId;
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
+    }
 
     public String getEvent() {
         return event;

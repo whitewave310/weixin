@@ -113,6 +113,10 @@ public class WeixinUtil {
         if (msgType.equals(Message.EVENT)){
             message.setEvent(map.get("Event"));
         }
+        if (msgType.equals(Message.IMAGE)){
+            message.setPicUrl(map.get("PicUrl"));
+            message.setMediaId(map.get("MediaId"));
+        }
         return message;
     }
 
