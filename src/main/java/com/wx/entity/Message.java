@@ -40,9 +40,23 @@ public  class Message implements Serializable {
 
     private String event;
 
+//    图片
+
     private String picUrl;
 
     private String mediaId;
+    //菜单
+
+    //事件KEY值，与自定义菜单接口中KEY值对应
+    private String eventKey;
+
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public void setEventKey(String eventKey) {
+        this.eventKey = eventKey;
+    }
 
     public String getPicUrl() {
         return picUrl;

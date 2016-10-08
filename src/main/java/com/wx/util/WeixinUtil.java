@@ -67,7 +67,6 @@ public class WeixinUtil {
 
     /**
      * 解析request中的xml 并将数据存储到一个Map中返回
-     * @param request
      */
     public static Map<String, String> parseXml(HttpServletRequest request){
         Map<String, String> map = new HashMap<String, String>();
@@ -89,8 +88,6 @@ public class WeixinUtil {
 
     /**
      * 存储数据的Map转换为对应的Message对象
-     * @param map 存储数据的map
-     * @return 返回对应Message对象
      */
     public static  Message  mapToMessage(Map<String,String> map){
         if(map == null) return null;
@@ -122,8 +119,6 @@ public class WeixinUtil {
 
     /**
      * 将回复消息对象转换成xml字符串
-     * @param reply 回复消息对象
-     * @return 返回符合微信接口的xml字符串
      */
     public static String replyToXml(Reply reply){
         xstream.autodetectAnnotations(true);

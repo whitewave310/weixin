@@ -106,6 +106,12 @@ public class WeixinController {
                     reply.setContent("欢迎关注我的公众号，现在有学你说话功能、你离我有多远功能和管理用户功能。\n发送“数据库”，你将看到公众号收到的所有信息\n发送“我的数据库”，你将看到自己发的所有信息\n发送“删除”，你还可以删掉自己的所有信息\n发送“github”,你将收到李静的github地址。");
                 }else if(message.getEvent().equals("unsubscribe")){
                     reply.setContent("拜，欢迎下次再来。");
+                }else if (message.getEvent().equals("CLICK")){
+                    if (message.getEventKey().equals("github")){
+                        reply.setContent("https://github.com/whitewave310");
+                    }else if (message.getEventKey().equals("plan")){
+                        //TODO 返回图片
+                    }
                 }
             }
             if (message.getMsgType().equals(message.IMAGE)){
